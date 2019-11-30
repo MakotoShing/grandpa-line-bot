@@ -74,7 +74,7 @@ def handle_message(event):
     #     to=event.source.userid, messages=TextSendMessage(text=response.random_text()))
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=response.random_text()))
 
 
 if __name__ == "__main__":
