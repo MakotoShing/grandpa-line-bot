@@ -1,5 +1,6 @@
 import pickle
 import random
+from PIL import Image, ImageDraw, ImageFont
 
 
 def random_text():
@@ -30,12 +31,9 @@ def one_word():
     message = message.replace("\"", "")
     return message
 
+
 # send images
 # https://qiita.com/tamago324/items/4df361fd6ac5b51a8a07
-from datetime import datetime
-
-from PIL import Image, ImageDraw, ImageFont
-
 def date_the_image(src: str, desc: str, size=800) -> None:
     # 開く
     im = Image.open(src)
@@ -44,7 +42,3 @@ def date_the_image(src: str, desc: str, size=800) -> None:
     if im.width > size:
         proportion = size / im.width
         im = im.resize((int(im.width * proportion), int(im.height * proportion)))
-
-
-if __name__ == '__main__':
-    random_text()

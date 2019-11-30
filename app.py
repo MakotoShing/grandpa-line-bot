@@ -52,10 +52,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # line_bot_api.push_message(
-    #     to=event.source.userid, messages=TextSendMessage(text=response.random_text()))
     if event.message.text in ["ダーディさん", "じっちゃん", "おじいちゃん", "おじいさん", "深井晃"]:
-
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=response.one_word()))
