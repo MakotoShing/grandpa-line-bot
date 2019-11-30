@@ -1,1 +1,5 @@
-.env
+.venv
+./extract.py
+./chat.txt
+./images.jpeg
+./grandpa.pickle
