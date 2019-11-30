@@ -55,7 +55,9 @@ def handle_message(event):
     if event.message.text in ["ダーディさん", "じっちゃん", "おじいちゃん", "おじいさん", "深井晃"]:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=response.one_word()))
+            [TextSendMessage(text=response.one_word()),
+             ImageSendMessage(original_content_url="https://drive.google.com/open?id=1LLpOBZUBOOzoPcuRJmRbxiEKbm1bPyFv",
+                              preview_image_url="https://drive.google.com/open?id=1LLpOBZUBOOzoPcuRJmRbxiEKbm1bPyFv")])
 
 
 if __name__ == "__main__":
