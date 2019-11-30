@@ -1,6 +1,8 @@
 # https://github.com/line/line-bot-sdk-python
 # https://qiita.com/kro/items/67f7510b36945eb9689b
 # https://qiita.com/bambi_engineer/items/0e8593d3a3047ece3f77
+# https://developers.line.biz/console/channel/1653518321
+# https://manager.line.biz/account/@535futje/setting
 
 from flask import Flask, request, abort
 from argparse import ArgumentParser

@@ -10,7 +10,6 @@ def random_text():
     message += one_day['date'] + "\n"
     for k, v in one_day['text'].items():
         message += k + ": " + v + "\n"
-    # print(message)
     return message
 
 
@@ -28,6 +27,7 @@ def one_word():
         if len(res) > 0:
             message += res[0]
             flag = True
+    message = message.replace("\"", "")
     return message
 
 
