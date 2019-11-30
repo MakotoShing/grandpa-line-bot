@@ -28,6 +28,7 @@ def one_word():
         if len(res) > 0:
             message += res[0]
             flag = True
+    return message
 
 
 if __name__ == '__main__':
