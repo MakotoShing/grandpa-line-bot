@@ -60,7 +60,7 @@ def handle_message(event):
             TextSendMessage(text=response.one_word()))
         line_bot_api.reply_message(
             event.reply_token,
-            ImageSendMessage(text=response.one_word()))
+            TextSendMessage(text="test"))
 
 
 if __name__ == "__main__":
