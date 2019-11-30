@@ -2,6 +2,7 @@
 # https://qiita.com/kro/items/67f7510b36945eb9689b
 
 from flask import Flask, request, abort
+from argparse import ArgumentParser
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -50,4 +51,5 @@ def handle_message(event):
 
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
