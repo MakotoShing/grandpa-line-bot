@@ -14,7 +14,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 )
 
 import os
@@ -50,26 +50,6 @@ def callback():
     return 'OK'
 
 
-# @app.route('/push_text', methods=['GET'])
-# def push_text():
-#     push_text =
-#     now = datetime.datetime.now()
-#     weekday = now.weekday()
-#     if weekday == 5 or weekday == 6:
-#         return 'OK'
-#     messages = TextSendMessage(text=push_text)
-#     # userIdの設定 (2)
-#     address_to_send_list = [
-#         '**********',
-#         '**********', ]
-#     for address in address_to_send_list:
-#         # Threadの設定 (3)
-#         p = threading.Thread(target=line_bot_api.push_message, args=(), kwargs={'to': address, 'messages': messages})
-#         p.start()
-#
-#     return 'OK'
-
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # line_bot_api.push_message(
@@ -78,6 +58,9 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=response.one_word()))
+        line_bot_api.reply_message(
+            event.reply_token,
+            ImageSendMessage(text=response.one_word()))
 
 
 if __name__ == "__main__":

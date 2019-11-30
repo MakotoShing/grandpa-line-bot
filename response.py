@@ -30,6 +30,9 @@ def one_word():
     message = message.replace("\"", "")
     return message
 
+# send images
+# https://qiita.com/tamago324/items/4df361fd6ac5b51a8a07
+
 
 if __name__ == '__main__':
     random_text()
