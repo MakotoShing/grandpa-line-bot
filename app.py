@@ -56,8 +56,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             [TextSendMessage(text=response.one_word()),
-             ImageSendMessage(original_content_url="https://drive.google.com/open?id=1Aoyz4bm-DcIhSVKNqHPQhUvcgwxnE9V-",
-                              preview_image_url="https://drive.google.com/open?id=1Aoyz4bm-DcIhSVKNqHPQhUvcgwxnE9V-")])
+             ImageSendMessage(original_content_url="https://zicchan-bot.herokuapp.com/memories/LINE.png",
+                              preview_image_url="https://zicchan-bot.herokuapp.com/memories/LINE.png")])
 
 
 if __name__ == "__main__":
