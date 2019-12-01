@@ -42,3 +42,4 @@ def date_the_image(src: str, desc: str, size=800) -> None:
     if im.width > size:
         proportion = size / im.width
         im = im.resize((int(im.width * proportion), int(im.height * proportion)))
+    im.save("./static/image.jpeg")
