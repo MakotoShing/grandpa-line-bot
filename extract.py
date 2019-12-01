@@ -116,8 +116,10 @@ def test():
 
 
 def test2():
-    import response
-    print(response.random_text())
+    import random
+    with open('image_ids.pickle', 'rb') as f:
+        image_ids = pickle.load(f)
+    print(random.choice(image_ids))
 
 
 if __name__ == '__main__':

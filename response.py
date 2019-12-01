@@ -43,3 +43,30 @@ def date_the_image(src: str, desc: str, size=800) -> None:
         proportion = size / im.width
         im = im.resize((int(im.width * proportion), int(im.height * proportion)))
     im.save("./static/image.jpeg")
+
+
+def update_ids():
+    from pydrive.auth import GoogleAuth
+    from pydrive.drive import GoogleDrive
+
+    # OAuth認証を行う
+    gauth = GoogleAuth()
+    gauth.CommandLineAuth()
+    drive = GoogleDrive(gauth)
+
+    drive_folder_id = "10rl0NFWtlAkL0kMzCvTZNuzYM_Mj-E5j"
+
+    file_list = drive.ListFile().GetList()
+    id_list = []
+    for f in file_list:
+        if f['title'][-3:] in ['jpg', 'png']:
+            id_list.append(f['id'])
+    with open("./image_ids.pickle", "wb") as f:
+        pickle.dump(id_list, f)
+
+
+def random_id():
+    with open('image_ids.pickle', 'rb') as f:
+        image_ids = pickle.load(f)
+    image_id = random.choice(image_ids)
+    return image_id
