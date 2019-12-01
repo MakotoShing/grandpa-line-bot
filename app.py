@@ -56,8 +56,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             [TextSendMessage(text=response.one_word()),
-             ImageSendMessage(original_content_url="https://drive.google.com/open?id=1LLpOBZUBOOzoPcuRJmRbxiEKbm1bPyFv",
-                              preview_image_url="https://drive.google.com/open?id=1LLpOBZUBOOzoPcuRJmRbxiEKbm1bPyFv")])
+             ImageSendMessage(original_content_url="https://drive.google.com/open?id=1Aoyz4bm-DcIhSVKNqHPQhUvcgwxnE9V-",
+                              preview_image_url="https://drive.google.com/open?id=1Aoyz4bm-DcIhSVKNqHPQhUvcgwxnE9V-")])
 
 
 if __name__ == "__main__":
