@@ -52,15 +52,13 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    google_url = "https://drive.google.com/uc?id=1LLpOBZUBOOzoPcuRJmRbxiEKbm1bPyFv"
     if event.message.text in ["ダーディさん", "じっちゃん", "おじいちゃん", "おじいさん", "深井晃"]:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=response.one_word()))
-        # line_bot_api.reply_message(
-        #     event.reply_token,
-        #     [TextSendMessage(text=response.one_word()),
-        #      ImageSendMessage(original_content_url="./memories/LINE.png",
-        #                       preview_image_url="./memories/LINE.png")])
+            [TextSendMessage(text=response.one_word()),
+             ImageSendMessage(original_content_url=google_url,
+                              preview_image_url=google_url)])
 
 
 if __name__ == "__main__":
