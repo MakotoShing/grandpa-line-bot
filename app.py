@@ -79,7 +79,7 @@ def handle_image(event):
         Constant = json.load(f)
     LIMIT_TIME = datetime.datetime.strptime(Constant["LIMIT_TIME"], "%Y/%m/%d %H:%M:%S")
     duration = datetime.datetime.now() - LIMIT_TIME
-    if Constant["SEND_IMAGE"] == "True" and divmod(duration, 60)[0] < 5:
+    if Constant["SEND_IMAGE"] == "True" and (duration // datetime.timedelta(minutes=1)) < 5:
         message_id = event.message.id
         message_content = line_bot_api.get_message_content(message_id)
         filename = "{}.jpg".format(message_id)
