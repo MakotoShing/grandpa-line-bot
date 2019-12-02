@@ -79,7 +79,8 @@ def upload_image(path, filename):
     if im.width > size:
         proportion = size / im.width
         im = im.resize((int(im.width * proportion), int(im.height * proportion)))
-    im.save("./static/image.jpeg")
+    os.remove(path)
+    im.save(path)
 
     f = drive.CreateFile({'title': filename, 'mimeType': 'image/jpeg'})
     f.SetContentFile(path)
