@@ -63,8 +63,8 @@ def handle_message(event):
             # Change to saving-image mode
             with open("Constant.json", "r") as fr:
                 Constant = json.load(fr)
-            Constant["SEND_IMAGE"] = True
-            Constant["LIMIT_TIME"] = datetime.datetime.now()
+            Constant["SEND_IMAGE"] = "True"
+            Constant["LIMIT_TIME"] = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             with open("Constant.json", "w") as fw:
                 json.dump(Constant, fw, indent=2)
 
