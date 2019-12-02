@@ -67,7 +67,20 @@ def handle_message(event):
             Constant["LIMIT_TIME"] = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             with open("Constant.json", "w") as fw:
                 json.dump(Constant, fw, indent=2)
-
+        else:
+            with open("Constant.json", "r") as fr:
+                Constant = json.load(fr)
+            prev_date = datetime.datetime.strptime(Constant["SENT_DATE"], "%Y/%m/%d %H:%M:%S")
+            duration = datetime.datetime.now() - prev_date
+            if (duration // datetime.timedelta(days=1)) > 0:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    [TextSendMessage(text=response.one_word()),
+                     ImageSendMessage(original_content_url=google_url,
+                                      preview_image_url=google_url)])
+                Constant["SENT_DATE"] = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+                with open("Constant.json", "w") as fw:
+                    json.dump(Constant, fw, indent=2)
     except:
         pass
 
