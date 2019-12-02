@@ -14,14 +14,12 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
+    MessageEvent, TextMessage, ImageMessage, TextSendMessage, ImageSendMessage
 )
-
 import os
-import json
-import threading
 import datetime
 import response
+import json
 
 app = Flask(__name__)
 
@@ -53,12 +51,48 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     google_url = "https://drive.google.com/uc?id=" + response.random_id()
-    if event.message.text in ["ダーディさん", "じっちゃん", "おじいちゃん", "おじいさん", "深井晃"]:
-        line_bot_api.reply_message(
-            event.reply_token,
-            [TextSendMessage(text=response.one_word()),
-             ImageSendMessage(original_content_url=google_url,
-                              preview_image_url=google_url)])
+    try:
+        if event.message.text in ["ダーディさん", "じっちゃん", "おじいちゃん", "おじいさん", "深井晃"]:
+            line_bot_api.reply_message(
+                event.reply_token,
+                [TextSendMessage(text=response.one_word()),
+                 ImageSendMessage(original_content_url=google_url,
+                                  preview_image_url=google_url)])
+        elif event.message.text.split()[0] in ["ダーディさん", "じっちゃん", "おじいちゃん", "おじいさん", "深井晃"] and \
+                event.message.text.split()[1] == '画像':
+            # Change to saving-image mode
+            with open("Constant.json", "r") as fr:
+                Constant = json.load(fr)
+            Constant["SEND_IMAGE"] = True
+            Constant["LIMIT_TIME"] = datetime.datetime.now()
+            with open("Constant.json", "w") as fw:
+                json.dump(Constant, fw, indent=2)
+
+    except:
+        pass
+
+
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image(event):
+    # Allow images to save if it's sent within five mins
+    with open("Constant.json", "r") as f:
+        Constant = json.load(f)
+    LIMIT_TIME = datetime.datetime.strptime(Constant["LIMIT_TIME"], "%Y/%m/%d %H:%M:%S")
+    duration = datetime.datetime.now() - LIMIT_TIME
+    if Constant["SEND_IMAGE"] == "True" and divmod(duration, 60)[0] < 5:
+        message_id = event.message.id
+        message_content = line_bot_api.get_message_content(message_id)
+        filename = "{}.jpg".format(message_id)
+        path = "./static/images/" + filename
+        with open(filename, "wb") as f:
+            for chunk in message_content.iter_content():
+                f.write(chunk)
+        response.upload_image(path, filename)
+
+    else:
+        Constant["SEND_IMAGE"] = "False"
+        with open("Constant.json", "w") as fw:
+            json.dump(Constant, fw, indent=2)
 
 
 if __name__ == "__main__":

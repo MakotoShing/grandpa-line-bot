@@ -1,6 +1,7 @@
 import pickle
 import random
 from PIL import Image, ImageDraw, ImageFont
+import os
 
 
 def random_text():
@@ -63,6 +64,29 @@ def update_ids():
             id_list.append(f['id'])
     with open("./image_ids.pickle", "wb") as f:
         pickle.dump(id_list, f)
+
+
+def upload_image(path, filename):
+    from pydrive.auth import GoogleAuth
+    from pydrive.drive import GoogleDrive
+
+    gauth = GoogleAuth()
+    gauth.CommandLineAuth()
+    drive = GoogleDrive(gauth)
+
+    im = Image.open(path)
+    size = 800
+    if im.width > size:
+        proportion = size / im.width
+        im = im.resize((int(im.width * proportion), int(im.height * proportion)))
+    im.save("./static/image.jpeg")
+
+    f = drive.CreateFile({'title': filename, 'mimeType': 'image/jpeg'})
+    f.SetContentFile(path)
+    f.Upload()
+    update_ids()
+    # remove image
+    os.remove(path)
 
 
 def random_id():
