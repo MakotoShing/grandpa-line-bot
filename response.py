@@ -85,7 +85,7 @@ def upload_image(path, filename):
     f = drive.CreateFile({'title': filename, 'mimeType': 'image/jpeg'})
     f.SetContentFile(path)
     f.Upload()
-    update_ids()
+    # update_ids()
     # remove image
     os.remove(path)
 

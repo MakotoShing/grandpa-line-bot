@@ -122,6 +122,17 @@ def test2():
     print(random.choice(image_ids))
 
 
+def upload_memories():
+    from response import upload_image
+    import glob
+    images = glob.glob("memories/*")
+    for image in images:
+        upload_image(path=image, filename=image.split("/")[-1])
+    from response import update_ids
+    update_ids()
+    print("Done!")
+
+
 if __name__ == '__main__':
-    test2()
+    upload_memories()
     # clean()
