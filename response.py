@@ -74,13 +74,13 @@ def upload_image(path, filename):
     gauth.CommandLineAuth()
     drive = GoogleDrive(gauth)
 
-    im = Image.open(path)
-    size = 800
-    if im.width > size:
-        proportion = size / im.width
-        im = im.resize((int(im.width * proportion), int(im.height * proportion)))
-    os.remove(path)
-    im.save(path)
+    # im = Image.open(path)
+    # size = 800
+    # if im.width > size:
+    #     proportion = size / im.width
+    #     im = im.resize((int(im.width * proportion), int(im.height * proportion)))
+    # os.remove(path)
+    # im.save(path)
 
     f = drive.CreateFile({'title': filename, 'mimeType': 'image/jpeg'})
     f.SetContentFile(path)
