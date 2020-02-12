@@ -1,4 +1,5 @@
 # grandpa-line-bot
+(Updated on 2020/2/12)
 
 - To deploy on Heroku
 Since it's connected to GitHub, you can easily run the following codes
