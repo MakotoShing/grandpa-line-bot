@@ -90,7 +90,7 @@ def handle_message(event):
                 f.Delete()
                 with open("Constant.json", "w") as fw:
                     json.dump(Constant, fw, indent=2)
-
+                # Upload new one to Drive
                 f = drive.CreateFile()
                 f.SetContentFile("Constant.json")
                 f.Upload()
