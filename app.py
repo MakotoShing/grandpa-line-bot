@@ -20,6 +20,8 @@ import os
 import datetime
 import response
 import json
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 app = Flask(__name__)
 
@@ -68,9 +70,14 @@ def handle_message(event):
             with open("Constant.json", "w") as fw:
                 json.dump(Constant, fw, indent=2)
         else:
-            with open("Constant.json", "r") as fr:
-                Constant = json.load(fr)
+            gauth = GoogleAuth()
+            gauth.CommandLineAuth()
+            drive = GoogleDrive(gauth)
+
+            f = drive.ListFile({'q': 'title = "Constant.json"'}).GetList()[0]
+            Constant = json.loads(f.GetContentString())
             prev_date = datetime.datetime.strptime(Constant["SENT_DATE"], "%Y/%m/%d %H:%M:%S")
+
             days = datetime.datetime.now().day - prev_date.day
             if days > 0:
                 line_bot_api.reply_message(
@@ -79,8 +86,14 @@ def handle_message(event):
                      ImageSendMessage(original_content_url=google_url,
                                       preview_image_url=google_url)])
                 Constant["SENT_DATE"] = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+                # Delete the previous file
+                f.Delete()
                 with open("Constant.json", "w") as fw:
                     json.dump(Constant, fw, indent=2)
+
+                f = drive.CreateFile()
+                f.SetContentFile("Constant.json")
+                f.Upload()
     except:
         pass
 
