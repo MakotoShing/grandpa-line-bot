@@ -8,3 +8,5 @@ git status
 git commit -m "message"
 git push origin master
 ```
+
+- [Heroku's link](https://dashboard.heroku.com/apps/zicchan-bot)
